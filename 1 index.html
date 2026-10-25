@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Misi Ejen Suku Kata | Rumah Saya</title>
+<style>
+:root {
+  --purple:#7048e8;
+  --pink:#ff4fa3;
+  --blue:#27b8e8;
+  --green:#20bd83;
+  --yellow:#ffdc59;
+  --ink:#26356b;
+  --cream:#fffdf5;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:"Trebuchet MS",Arial,sans-serif;color:var(--ink);
+  background:linear-gradient(135deg,#e8e4ff,#fff0f7,#e0faff);
+}
+button{font:inherit;cursor:pointer;border:0;transition:.2s}
+button:hover{transform:translateY(-2px);filter:brightness(1.04)}
+header{
+  background:white;display:flex;align-items:center;justify-content:space-between;
+  gap:12px;padding:12px 4%;box-shadow:0 4px 18px #392c7718;
+  position:sticky;top:0;z-index:5;flex-wrap:wrap;
+}
+.logo{font-weight:1000;color:var(--purple);font-size:18px}
+nav{display:flex;gap:7px;flex-wrap:wrap}
+.navbtn,.pill{
+  color:white;border-radius:25px;padding:10px 15px;font-weight:bold;
+  box-shadow:0 4px 0 #00000012;
+}
+.navbtn{background:var(--pink);font-size:12px}
+.navbtn:nth-child(2){background:var(--purple)}
+.navbtn:nth-child(3){background:var(--blue)}
+.navbtn:nth-child(4){background:var(--green)}
+.navbtn:nth-child(5){background:#ffb52e}
+.navbtn.active{outline:3px solid #ffdc59;outline-offset:2px}
+main{max-width:1120px;margin:auto;padding:22px 16px 40px}
+.page{display:none;animation:appear .35s ease}
+.page.active{display:block}
+@keyframes appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.hero{
+  overflow:hidden;border:5px solid white;border-radius:30px;
+  background:linear-gradient(120deg,#8de5ff,#d9f8ff 48%,#fff1bd);
+  box-shadow:0 10px 30px #392c7718;position:relative;
+}
+.hero-content{display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:10px;padding:35px}
+.eyebrow{color:#7048e8;font-weight:1000;letter-spacing:2px;font-size:12px}
+h1{font-size:clamp(35px,6vw,68px);line-height:1;margin:12px 0;color:#7048e8;text-shadow:2px 3px white}
+h1 span{color:#ff4fa3}
+h2{font-size:clamp(25px,4vw,38px);margin:8px 0}
+h3{margin:8px 0}
+p{line-height:1.6}
+.hero-art{text-align:center;font-size:clamp(45px,8vw,90px);line-height:1.3}
+.house{display:inline-block;filter:drop-shadow(0 8px 2px #604e3620)}
+.family{font-size:clamp(36px,6vw,65px);white-space:nowrap}
+.speech{
+  display:inline-block;background:white;border:3px solid #ffe26e;
+  padding:13px 18px;border-radius:22px;font-weight:bold;
+}
+.btn{
+  padding:13px 21px;border-radius:30px;color:white;font-weight:900;
+  box-shadow:0 5px 0 #00000014;margin:5px 4px 5px 0;
+}
+.pink{background:var(--pink)}.purple{background:var(--purple)}
+.blue{background:var(--blue)}.green{background:var(--green)}
+.yellow{background:#ffb52e;color:#493400}
+.white{background:white;color:var(--purple);border:2px solid #e3d8ff}
+.section-head{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  flex-wrap:wrap;margin:8px 0 20px
+}
+.tag{background:var(--yellow);padding:10px 15px;border-radius:20px;font-weight:bold}
+.panel{
+  background:var(--cream);border:4px solid white;border-radius:25px;
+  padding:clamp(16px,3vw,28px);box-shadow:0 8px 24px #392c7710;
+}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.card{
+  background:white;border:2px solid #e6dcff;border-radius:20px;
+  padding:15px 10px;text-align:center;box-shadow:0 5px 0 #7048e814;
+}
+.card .emoji{font-size:clamp(36px,5vw,55px);display:block;margin:8px}
+.syllables{font-size:19px;font-weight:1000;color:var(--purple);letter-spacing:1px}
+.word{font-size:23px;font-weight:1000;margin-top:5px}
+.card small{display:block;color:#77809c;margin-top:5px}
+.room-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.room{
+  border-radius:22px;padding:20px;background:#fff0bd;border:3px solid white;
+  text-align:center;cursor:pointer
+}
+.room:nth-child(2){background:#d5f8ed}
+.room:nth-child(3){background:#ffdcec}
+.room:nth-child(4){background:#dceaff}
+.room .emoji{font-size:48px}
+.family-banner{
+  background:linear-gradient(110deg,#ffe1ed,#fff7cb);
+  border:3px solid white;border-radius:22px;padding:15px;text-align:center;
+  margin:15px 0;font-size:18px;font-weight:bold;
+}
+.question{font-size:23px;font-weight:900;margin:15px 0}
+.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.option{
+  background:white;border:3px solid #d8e5ff;border-radius:16px;
+  padding:16px;font-size:19px;font-weight:900;color:var(--ink)
+}
+.option:hover{border-color:var(--purple)}
+.option.correct{background:#d5f8e9;border-color:var(--green)}
+.option.wrong{background:#ffe0e7;border-color:#ff6288}
+.feedback{padding:13px;border-radius:14px;font-weight:bold;margin:12px 0;background:#fff0bd}
+.progress{height:12px;background:#e6e4f5;border-radius:20px;overflow:hidden;margin:12px 0}
+.progress div{height:100%;background:linear-gradient(90deg,var(--pink),var(--purple));width:0;transition:.3s}
+.badges{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.badge-card{background:white;border-radius:20px;text-align:center;padding:20px 8px;border:2px solid #ffe7a0}
+.badge-card .emoji{font-size:44px}
+.audio-btn{
+ display:block;
+ width:100%;
+ margin:8px 0 0;
+ font-size:13px;
+ padding:10px 8px;
+}
+.audio-btn:hover{
+ transform:scale(1.03);
+ box-shadow:0 4px 10px #7048e833;
+}
+footer{text-align:center;color:#797d9c;font-size:12px;padding:20px}
+.hidden{display:none!important}
+@media(max-width:700px){
+ header{position:static;justify-content:center}
+ nav{justify-content:center}
+ .hero-content{grid-template-columns:1fr;text-align:center;padding:23px 16px}
+ .hero-art{order:-1}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .room-grid{grid-template-columns:1fr 1fr}
+ .options{grid-template-columns:1fr}
+ .family{white-space:normal}
+ .badges{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">🏡 MISI EJEN SUKU KATA</div>
+  <nav>
+    <button class="navbtn active" data-page="home">🏠 Utama</button>
+    <button class="navbtn" data-page="induksi">🌈 Set Induksi</button>
+    <button class="navbtn" data-page="ajar">📚 Pengajaran</button>
+    <button class="navbtn" data-page="latihan">🧩 Latihan</button>
+    <button class="navbtn" data-page="kuiz">🎮 Kuiz</button>
+    <button class="navbtn" data-page="penutup">🏆 Penutup</button>
+  </nav>
+</header>
+
+<main>
+<!-- HALAMAN UTAMA -->
+<section id="home" class="page active">
+  <div class="hero">
+    <div class="hero-content">
+      <div>
+        <div class="eyebrow">PENGEMBARAAN MEMBACA BERMULA!</div>
+        <h1>Misi Ejen<br><span>Suku Kata</span></h1>
+        <h2>🏡 Rumah Saya</h2>
+        <p class="speech">Jom baca perkataan KV + KVK yang ada di rumah!</p>
+        <p>Ikut Ejen Cilik menjelajah rumah, belajar membaca dan kumpul lencana.</p>
+        <button class="btn pink" onclick="go('induksi')">Mula Misi ➜</button>
+      </div>
+      <div class="hero-art">
+        <div class="house">🏡🌳☀️</div>
+        <div class="family">👩🏻‍🦰 👨🏻 👧🏻 👦🏻</div>
+        <div style="font-size:35px">🐱 🌷 🦋</div>
+        <div class="speech">Selamat datang, Ejen!</div>
+      </div>
+    </div>
+  </div>
+  <div class="family-banner">💗 Rumahku Syurgaku — Belajar membaca bersama keluarga!</div>
+  <div class="panel">
+    <h2>🗺️ Peta Misi</h2>
+    <p>Pilih lokasi untuk memulakan pengembaraan kamu.</p>
+    <div class="room-grid">
+      <div class="room" onclick="go('induksi')"><div class="emoji">🏠</div><h3>1. Kenali Rumah</h3><small>Set induksi · 5 minit</small></div>
+      <div class="room" onclick="go('ajar')"><div class="emoji">📖</div><h3>2. Akademi Kata</h3><small>Pengajaran · 15 minit</small></div>
+      <div class="room" onclick="go('latihan')"><div class="emoji">🧩</div><h3>3. Pusat Latihan</h3><small>Latihan · 15 minit</small></div>
+      <div class="room" onclick="go('kuiz')"><div class="emoji">🎮</div><h3>4. Kuiz Ejen</h3><small>Permainan · 15 minit</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- SET INDUKSI -->
+<section id="induksi" class="page">
+  <div class="section-head"><h2>🌈 1. Set Induksi</h2><span class="tag">⏰ 5 minit</span></div>
+  <div class="panel">
+    <div class="family-banner">👨‍👩‍👧‍👦 Jom kenal rumah keluarga kita!</div>
+    <div class="hero-art">🏡 🪟 🚪 🌳</div>
+    <h2>Apakah yang ada di rumah?</h2>
+    <p>Lihat gambar di bawah. Cuba sebut nama objek yang kamu kenal.</p>
+    <div class="grid">
+      <div class="card"><span class="emoji">👟</span><div class="word">Kasut</div></div>
+      <div class="card"><span class="emoji">🧼</span><div class="word">Sabun</div></div>
+      <div class="card"><span class="emoji">🍼</span><div class="word">Botol</div></div>
+      <div class="card"><span class="emoji">🥚</span><div class="word">Telur</div></div>
+    </div>
+    <p class="feedback">💡 Soalan guru: “Pernahkah kamu melihat objek ini di rumah?”</p>
+    <button class="btn white" onclick="go('home')">← Kembali</button>
+    <button class="btn pink" onclick="go('ajar')">Jom Belajar ➜</button>
+  </div>
+</section>
+
+<!-- PENGAJARAN -->
+<section id="ajar" class="page">
+  <div class="section-head"><h2>📚 2. Akademi Kata</h2><span class="tag">⏰ 15 minit</span></div>
+  <div class="panel">
+    <div class="family-banner">👩🏻‍🏫 Dengar, sebut dan baca bersama-sama!</div>
+    <p>Gabungkan suku kata pertama <b>KV</b> dengan suku kata kedua <b>KVK</b>.</p>
+    <div class="grid" id="wordCards"></div>
+    <div class="feedback">🔊 Panduan: Sebut suku kata satu demi satu, kemudian baca perkataan penuh.</div>
+    <button class="btn blue" onclick="speakWords()">🔊 Dengar sebutan</button>
+    <button class="btn white" onclick="go('induksi')">← Kembali</button>
+    <button class="btn pink" onclick="go('latihan')">Ke Pusat Latihan ➜</button>
+  </div>
+</section>
+
+<!-- LATIHAN -->
+<section id="latihan" class="page">
+  <div class="section-head"><h2>🧩 3. Pusat Latihan</h2><span class="tag">⏰ 15 minit</span></div>
+  <div class="panel">
+    <div class="family-banner">🔎 Misi kamu: pilih perkataan yang sepadan dengan gambar!</div>
+    <div id="practiceArea">
+      <div class="hero-art" id="practiceEmoji">👟</div>
+      <div class="question" id="practiceQuestion">Apakah nama objek ini?</div>
+      <div class="options" id="practiceOptions"></div>
+      <div id="practiceFeedback" class="feedback hidden"></div>
+      <button class="btn blue" id="checkPractice" onclick="checkPractice()">Semak Jawapan</button>
+      <button class="btn pink hidden" id="nextPractice" onclick="nextPractice()">Soalan Seterusnya ➜</button>
+      <button class="btn yellow" onclick="resetPractice()">↻ Cuba Lagi</button>
+    </div>
+    <button class="btn white" onclick="go('ajar')">← Kembali</button>
+    <button class="btn purple" onclick="go('kuiz')">Teruskan ke Kuiz ➜</button>
+  </div>
+</section>
+
+<!-- KUIZ -->
+<section id="kuiz" class="page">
+  <div class="section-head"><h2>🎮 4. Kuiz Ejen</h2><span class="tag">⏰ 15 minit</span></div>
+  <div class="panel">
+    <div class="family-banner">⭐ Jawab soalan, kumpul markah dan jadi Ejen Hebat!</div>
+    <div class="progress"><div id="quizProgress"></div></div>
+    <div id="quizArea">
+      <p id="quizCounter">Soalan 1 daripada 8</p>
+      <div class="hero-art" id="quizEmoji">👟</div>
+      <div class="question" id="quizQuestion">Pilih jawapan yang betul.</div>
+      <div class="options" id="quizOptions"></div>
+      <div id="quizFeedback" class="feedback hidden"></div>
+      <button class="btn pink" id="quizCheck" onclick="checkQuiz()">Semak Jawapan</button>
+      <button class="btn purple hidden" id="quizNext" onclick="nextQuiz()">Soalan Seterusnya ➜</button>
+    </div>
+    <div id="quizResult" class="hidden">
+      <div class="hero-art">🏆 ⭐ 🎉</div>
+      <h2>Tahniah, Ejen Hebat!</h2>
+      <p id="resultText"></p>
+      <button class="btn green" onclick="go('penutup')">Lihat Pencapaian ➜</button>
+      <button class="btn white" onclick="startQuiz()">↻ Cuba Kuiz Lagi</button>
+    </div>
+    <button class="btn white" onclick="go('latihan')">← Kembali</button>
+  </div>
+</section>
+
+<!-- PENUTUP -->
+<section id="penutup" class="page">
+  <div class="section-head"><h2>🏆 5. Penutup</h2><span class="tag">⏰ 10 minit</span></div>
+  <div class="panel">
+    <div class="hero-art">🏡 👨‍👩‍👧‍👦 🌟</div>
+    <h2 style="text-align:center;color:#7048e8">Tahniah, Ejen Hebat!</h2>
+    <p style="text-align:center">Kamu telah menyelesaikan misi membaca perkataan KV + KVK bertemakan Rumah Saya.</p>
+    <div class="grid" id="reviewCards"></div>
+    <div class="family-banner">💗 Membaca setiap hari menjadikan kita lebih bijak!</div>
+    <h3>🏅 Pencapaian kamu</h3>
+    <div class="badges">
+      <div class="badge-card"><div class="emoji">⭐</div><b>Ejen Cilik</b><p>Berani mencuba</p></div>
+      <div class="badge-card"><div class="emoji">📚</div><b>Pembaca Bijak</b><p>Berlatih membaca</p></div>
+      <div class="badge-card"><div class="emoji">🏆</div><b>Ejen Hebat</b><p id="finalScore">Selesaikan kuiz</p></div>
+    </div>
+    <p class="feedback">👩🏻‍🏫 Refleksi: Minta murid membaca semula beberapa perkataan tanpa bantuan guru.</p>
+    <button class="btn white" onclick="go('kuiz')">← Kembali ke Kuiz</button>
+    <button class="btn pink" onclick="go('home')">🏠 Ke Halaman Utama</button>
+  </div>
+</section>
+
+<footer>🏡 Misi Ejen Suku Kata · Rumah Saya · Belajar dengan ceria! 💗</footer>
+</main>
+
+<script>
+const words = [
+ {kv:"ka",kvk:"sut",word:"kasut",emoji:"👟"},
+ {kv:"sa",kvk:"bun",word:"sabun",emoji:"🧼"},
+ {kv:"bo",kvk:"tol",word:"botol",emoji:"🍼"},
+ {kv:"te",kvk:"lur",word:"telur",emoji:"🥚"},
+ {kv:"ti",kvk:"kar",word:"tikar",emoji:"🧺"},
+ {kv:"ka",kvk:"til",word:"katil",emoji:"🛏️"},
+ {kv:"ge",kvk:"las",word:"gelas",emoji:"🥛"},
+ {kv:"ko",kvk:"tak",word:"kotak",emoji:"📦"}
+];
+
+let practiceIndex=0, practiceChoice=-1, practiceDone=false;
+let quizIndex=0, quizChoice=-1, quizScore=0, quizDone=false;
+
+function go(id){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ document.querySelectorAll(".navbtn").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
+ window.scrollTo({top:0,behavior:"smooth"});
+ if(id==="latihan")renderPractice();
+ if(id==="kuiz" && !document.getElementById("quizResult").classList.contains("hidden")){}
+}
+document.querySelectorAll(".navbtn").forEach(b=>b.addEventListener("click",()=>go(b.dataset.page)));
+
+function renderWords(){
+ document.getElementById("wordCards").innerHTML=words.map((w,i)=>`
+  <div class="card">
+   <span class="emoji">${w.emoji}</span>
+   <div class="syllables">${w.kv} + ${w.kvk}</div>
+   <div class="word">${w.word}</div>
+   <button class="btn blue audio-btn" onclick="speakWord(${i})">🔊 Dengar perkataan</button>
+   <button class="btn purple audio-btn" onclick="speakSyllables(${i})">🗣️ Dengar suku kata</button>
+  </div>`).join("");
+
+ document.getElementById("reviewCards").innerHTML=words.map(w=>`
+  <div class="card"><span class="emoji">${w.emoji}</span><div class="word">${w.word}</div></div>`).join("");
+}
+function speakWords(){
+ if(!("speechSynthesis" in window)){alert("Audio sebutan tidak disokong pada peranti ini.");return;}
+ speechSynthesis.cancel();
+ let text=words.map(w=>w.kv+" "+w.kvk+". "+w.word+".").join(". ");
+ let utter=new SpeechSynthesisUtterance(text);
+ utter.lang="ms-MY";utter.rate=.75;speechSynthesis.speak(utter);
+}
+function speakWord(index){
+ if(!("speechSynthesis" in window)){
+  alert("Audio sebutan tidak disokong pada peranti ini.");
+  return;
+ }
+ speechSynthesis.cancel();
+ const w=words[index];
+ const utter=new SpeechSynthesisUtterance(w.word);
+ utter.lang="ms-MY";
+ utter.rate=0.75;
+ utter.pitch=1.05;
+ speechSynthesis.speak(utter);
+}
+function speakSyllables(index){
+ if(!("speechSynthesis" in window)){
+  alert("Audio sebutan tidak disokong pada peranti ini.");
+  return;
+ }
+ speechSynthesis.cancel();
+ const w=words[index];
+ const utter=new SpeechSynthesisUtterance(w.kv+"... "+w.kvk+"... "+w.word);
+ utter.lang="ms-MY";
+ utter.rate=0.65;
+ utter.pitch=1.05;
+ speechSynthesis.speak(utter);
+}
+function renderPractice(){
+ let w=words[practiceIndex%words.length];
+ document.getElementById("practiceEmoji").textContent=w.emoji;
+ document.getElementById("practiceQuestion").textContent="Apakah nama objek ini?";
+ let choices=[w.word,...words.filter(x=>x.word!==w.word).sort(()=>Math.random()-.5).slice(0,3).map(x=>x.word)].sort(()=>Math.random()-.5);
+ practiceChoice=-1;practiceDone=false;
+ document.getElementById("practiceFeedback").classList.add("hidden");
+ document.getElementById("checkPractice").classList.remove("hidden");
+ document.getElementById("nextPractice").classList.add("hidden");
+ document.getElementById("practiceOptions").innerHTML=choices.map(c=>
+ `<button class="option" onclick="choosePractice('${c}',this)">${c}</button>`).join("");
+}
+function choosePractice(c,el){
+ if(practiceDone)return;
+ practiceChoice=c;
+ document.querySelectorAll("#practiceOptions .option").forEach(x=>x.style.outline="none");
+ el.style.outline="3px solid #7048e8";
+}
+function checkPractice(){
+ if(practiceChoice===-1){alert("Pilih satu jawapan dahulu!");return;}
+ let w=words[practiceIndex%words.length];
+ let fb=document.getElementById("practiceFeedback");fb.classList.remove("hidden");
+ practiceDone=true;
+ if(practiceChoice===w.word){fb.textContent="🎉 Betul! "+w.kv+" + "+w.kvk+" = "+w.word;fb.style.background="#d5f8e9";}
+ else{fb.textContent="💪 Belum tepat. Jawapan yang betul ialah "+w.word+". Cuba lagi selepas ini.";fb.style.background="#ffe0e7";}
+ document.getElementById("checkPractice").classList.add("hidden");
+ document.getElementById("nextPractice").classList.remove("hidden");
+}
+function nextPractice(){practiceIndex=(practiceIndex+1)%words.length;renderPractice();}
+function resetPractice(){practiceIndex=0;renderPractice();}
+
+function startQuiz(){
+ quizIndex=0;quizScore=0;quizChoice=-1;quizDone=false;
+ document.getElementById("quizArea").classList.remove("hidden");
+ document.getElementById("quizResult").classList.add("hidden");
+ renderQuiz();
+}
+function renderQuiz(){
+ const w=words[quizIndex];
+ quizChoice=-1;quizDone=false;
+ document.getElementById("quizCounter").textContent=`Soalan ${quizIndex+1} daripada ${words.length}`;
+ document.getElementById("quizProgress").style.width=(quizIndex/words.length*100)+"%";
+ document.getElementById("quizEmoji").textContent=w.emoji;
+ document.getElementById("quizQuestion").textContent="Pilih gabungan suku kata yang betul bagi gambar ini.";
+ let choices=[w.kv+" + "+w.kvk,...words.filter(x=>x.word!==w.word).sort(()=>Math.random()-.5).slice(0,3).map(x=>x.kv+" + "+x.kvk)].sort(()=>Math.random()-.5);
+ document.getElementById("quizOptions").innerHTML=choices.map(c=>
+ `<button class="option" onclick="chooseQuiz('${c}',this)">${c}</button>`).join("");
+ document.getElementById("quizFeedback").classList.add("hidden");
+ document.getElementById("quizCheck").classList.remove("hidden");
+ document.getElementById("quizNext").classList.add("hidden");
+}
+function chooseQuiz(c,el){
+ if(quizDone)return;
+ quizChoice=c;
+ document.querySelectorAll("#quizOptions .option").forEach(x=>x.style.outline="none");
+ el.style.outline="3px solid #7048e8";
+}
+function checkQuiz(){
+ if(!quizChoice){alert("Pilih satu jawapan dahulu!");return;}
+ if(quizDone)return;
+ quizDone=true;
+ const w=words[quizIndex], correct=w.kv+" + "+w.kvk;
+ let fb=document.getElementById("quizFeedback");fb.classList.remove("hidden");
+ if(quizChoice===correct){quizScore++;fb.textContent="🎉 Betul! "+correct+" = "+w.word;fb.style.background="#d5f8e9";}
+ else{fb.textContent="💗 Jawapan yang betul ialah "+correct+" = "+w.word+". Teruskan mencuba!";fb.style.background="#ffe0e7";}
+ document.getElementById("quizCheck").classList.add("hidden");
+ document.getElementById("quizNext").classList.remove("hidden");
+}
+function nextQuiz(){
+ if(quizIndex<words.length-1){quizIndex++;renderQuiz();}
+ else{
+  document.getElementById("quizArea").classList.add("hidden");
+  document.getElementById("quizResult").classList.remove("hidden");
+  document.getElementById("quizProgress").style.width="100%";
+  document.getElementById("resultText").textContent=`Markah kamu: ${quizScore}/${words.length}. ${quizScore>=6?"Hebat! Kamu semakin mahir membaca.":"Bagus kerana mencuba! Jom berlatih lagi."}`;
+  document.getElementById("finalScore").textContent=`Markah: ${quizScore}/${words.length}`;
+ }
+}
+renderWords();
+renderPractice();
+startQuiz();
+</script>
+</body>
+</html>
+'''
+path = Path("/mnt/data/Misi_Ejen_Suku_Kata_Audio.html")
+path.write_text(html, encoding="utf-8")
+print(f"Fail HTML siap: {path.name}\nSaiz: {path.stat().st_size:,} bait")
